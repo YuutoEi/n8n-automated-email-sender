@@ -1,0 +1,91 @@
+{
+  "name": "Webinar Registration Email Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "189cfb37-13ef-4c56-b8d1-19cec7d9ee5a",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "e7e909a1-0bc4-474d-862d-0b6667104b21",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "189cfb37-13ef-4c56-b8d1-19cec7d9ee5a"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        },
+        "responseBody": "={\n  \"success\": true,\n  \"message\": \"Registration received successfully for {{ $json.body.fullName }}\",\n  \"ticketId\": \"{{ $json.body.ticketId }}\"\n}"
+      },
+      "id": "782f23b7-7e6d-4952-b883-fa4c582522ce",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.email }}",
+        "subject": "=🎟️ Tiket & Akses Webinar Anda: {{ $json.body.eventName }} [{{ $json.body.ticketId }}]",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <style>\n    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; color: #333; }\n    .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 10px; overflow: hidden; border: 1px solid #e1e4e8; }\n    .header { background-color: #2563eb; color: #ffffff; padding: 30px 24px; text-align: center; }\n    .header h1 { margin: 0; font-size: 22px; font-weight: 700; }\n    .header p { margin: 8px 0 0 0; opacity: 0.9; font-size: 14px; }\n    .content { padding: 28px 24px; }\n    .greeting { font-size: 16px; margin-bottom: 16px; }\n    .ticket-card { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 8px; padding: 20px; margin: 20px 0; }\n    .ticket-id { font-size: 20px; font-weight: bold; color: #2563eb; letter-spacing: 1px; }\n    .detail-row { display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; }\n    .detail-row strong { color: #64748b; }\n    .zoom-box { background-color: #eff6ff; border-left: 4px solid #2563eb; padding: 14px; margin: 20px 0; border-radius: 4px; }\n    .zoom-btn { display: inline-block; background-color: #2563eb; color: #ffffff !important; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }\n    .footer { text-align: center; padding: 20px; font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h1>Pendaftaran Webinar Berhasil!</h1>\n      <p>Terima kasih telah bergabung bersama kami</p>\n    </div>\n    <div class=\"content\">\n      <p class=\"greeting\">Halo <strong>{{ $json.body.fullName }}</strong>,</p>\n      <p>Pendaftaran Anda untuk webinar <strong>{{ $json.body.eventName }}</strong> telah kami konfirmasi.</p>\n      \n      <div class=\"ticket-card\">\n        <div style=\"text-align: center; margin-bottom: 15px;\">\n          <span style=\"font-size: 12px; text-transform: uppercase; color: #64748b;\">Nomor Tiket Peserta</span><br>\n          <span class=\"ticket-id\">{{ $json.body.ticketId }}</span>\n        </div>\n        <div class=\"detail-row\">\n          <strong>Nama Peserta:</strong>\n          <span>{{ $json.body.fullName }}</span>\n        </div>\n        <div class=\"detail-row\">\n          <strong>Email Terdaftar:</strong>\n          <span>{{ $json.body.email }}</span>\n        </div>\n        <div class=\"detail-row\">\n          <strong>Jadwal Pelaksanaan:</strong>\n          <span>{{ $json.body.eventDate }} | {{ $json.body.eventTime }}</span>\n        </div>\n        <div class=\"detail-row\">\n          <strong>Profesi / Peran:</strong>\n          <span>{{ $json.body.role }}</span>\n        </div>\n      </div>\n\n      <div class=\"zoom-box\">\n        <h3 style=\"margin-top: 0; color: #1e40af;\">Tautan Masuk Ruang Webinar (Zoom)</h3>\n        <p style=\"margin: 4px 0 10px 0; font-size: 14px;\">Klik tombol di bawah ini saat acara dimulai:</p>\n        <a href=\"{{ $json.body.zoomLink }}\" class=\"zoom-btn\" target=\"_blank\">Masuk ke Ruang Zoom</a>\n      </div>\n\n      <p style=\"font-size: 13px; color: #64748b;\">\n        💡 <em>Tips:</em> Simpan email ini atau tandai (star) agar mudah ditemukan saat acara dimulai.\n      </p>\n    </div>\n    <div class=\"footer\">\n      Email otomatis dikirim melalui sistem workflow <b>n8n Automation</b>.<br>\n      Jika Anda tidak merasa mendaftar, abaikan email ini.\n    </div>\n  </div>\n</body>\n</html>"
+      },
+      "id": "e44c4fca-2f3c-4cf8-a96d-3177ee8476b3",
+      "name": "Send Ticket via Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        380
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Ticket via Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

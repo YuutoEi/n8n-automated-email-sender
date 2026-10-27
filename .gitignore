@@ -1,0 +1,12 @@
+# Logs & Temp files
+*.log
+.DS_Store
+Thumbs.db
+
+# Node dependencies (if any added later)
+node_modules/
+.npm/
+
+# Environment / local configs
+.env
+.env.local

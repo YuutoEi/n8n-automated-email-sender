@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrasi Webinar: Mastering Automation with n8n</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Settings Bar untuk konfigurasi Webhook n8n -->
+  <div class="config-bar">
+    <div class="config-inner">
+      <span class="config-badge">n8n Connected</span>
+      <label for="webhookMode">Mode Webhook:</label>
+      <select id="webhookMode" class="config-select">
+        <option value="test">Test Mode (webhook-test)</option>
+        <option value="prod" selected>Production Mode (webhook)</option>
+      </select>
+      <input type="url" id="webhookUrl" readonly value="https://oraclen8n.dhandyanadry.my.id/webhook/189cfb37-13ef-4c56-b8d1-19cec7d9ee5a">
+      <span id="webhookStatusText" class="status-note"></span>
+    </div>
+  </div>
+
+  <main class="page-container">
+    <div class="event-card-wrapper">
+      
+      <!-- Sisi Kiri: Detail Event -->
+      <section class="event-info-panel">
+        <div class="badge-tag">Webinar Eksklusif Gratis</div>
+        <h1 class="event-title">Mastering Workflow Automation & AI dengan n8n</h1>
+        <p class="event-subtitle">
+          Tingkatkan efisiensi kerja dan bisnis Anda dengan otomatisasi pintar. Pelajari cara mengintegrasikan API, memproses data, dan mengirim email interaktif tanpa repot.
+        </p>
+
+        <div class="event-meta-grid">
+          <div class="meta-item">
+            <span class="meta-icon">📅</span>
+            <div>
+              <strong>Tanggal</strong>
+              <p>Sabtu, 14 November 2026</p>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">⏰</span>
+            <div>
+              <strong>Waktu</strong>
+              <p>19:30 - 21:00 WIB</p>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">📍</span>
+            <div>
+              <strong>Lokasi</strong>
+              <p>Live via Zoom Meeting</p>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🎟️</span>
+            <div>
+              <strong>Investasi</strong>
+              <p><span class="strike">Rp 250.000</span> <span class="free-highlight">GRATIS (Slot Terbatas)</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-benefits">
+          <h3>Apa yang akan Anda dapatkan?</h3>
+          <ul>
+            <li>✅ E-Ticket & Link Meeting instan terkirim otomatis ke email Anda</li>
+            <li>✅ Template Workflow n8n siap pakai (Import & Run)</li>
+            <li>✅ Sesi Q&A interaktif live bersama praktisi automation</li>
+            <li>✅ E-Sertifikat kehadiran resmi</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Sisi Kanan: Form Registrasi -->
+      <section class="event-form-panel">
+        <div class="form-header">
+          <h2>Daftar Sekarang</h2>
+          <p>Tiket dan akses webinar akan langsung dikirimkan ke email Anda.</p>
+        </div>
+
+        <!-- Alert Notification -->
+        <div id="alertBox" class="alert hidden" role="alert"></div>
+
+        <form id="registrationForm" novalidate>
+          <div class="form-group">
+            <label for="fullName">Nama Lengkap <span class="required">*</span></label>
+            <input type="text" id="fullName" name="fullName" required placeholder="Contoh: Budi Santoso" autocomplete="name">
+            <small class="error-msg" id="fullNameError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Alamat Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="nama@email.com" autocomplete="email">
+            <small class="helper-text">Pastikan email aktif untuk menerima e-ticket & tautan Zoom.</small>
+            <small class="error-msg" id="emailError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Nomor WhatsApp (Opsional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="08xxxxxxxxxx" autocomplete="tel">
+          </div>
+
+          <div class="form-group">
+            <label for="role">Pekerjaan / Bidang Saat Ini</label>
+            <select id="role" name="role">
+              <option value="Professional / Karyawan">Professional / Karyawan</option>
+              <option value="Freelancer / Konsultan">Freelancer / Konsultan</option>
+              <option value="Business Owner / Founder">Business Owner / Founder</option>
+              <option value="Mahasiswa / Pelajar">Mahasiswa / Pelajar</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn-primary">
+            <span class="btn-text">Dapatkan Tiket Masuk</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </form>
+
+        <div class="privacy-note">
+          🔒 Kami menjaga privasi data Anda. Tidak ada spam.
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 n8n Automation Webinar. Powered by n8n Workflow Automation.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
